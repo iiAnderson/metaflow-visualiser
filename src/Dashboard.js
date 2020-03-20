@@ -19,11 +19,11 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
-import Deposits from './Deposits';
-import Orders from './Orders';
+import RecentFlowExecutions from './RecentFlowExecutions';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import TaskStatus from './TaskStatus';
+import { Card } from '@material-ui/core';
 
 function Copyright() {
     return (
@@ -111,8 +111,9 @@ const styles = theme => ({
     paper: {
         padding: theme.spacing(2),
         display: 'flex',
-        overflow: 'auto',
         flexDirection: 'column',
+        justifyContent: 'space-between',
+        width: '100%'
     },
     fixedHeight: {
         height: 240,
@@ -187,23 +188,23 @@ class Dashboard extends React.Component {
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
                     <Container maxWidth="lg" className={classes.container}>
-                        <Grid container spacing={3}>
-                            {/* Chart */}
-                            {/* <Grid item xs={12} md={8} lg={9}>
-                                <Paper className={fixedHeightPaper}>
+                        <Grid container spacing={3} alignItems="stretch">
+
+                            <Grid item xs={12} md={6} lg={3} style={{ display: 'flex' }}>
+                                <Paper className={classes.paper}>
                                     <Chart />
                                 </Paper>
-                            </Grid> */}
-                            {/* Recent Deposits */}
-                            <Grid item xs={12} md={8} lg={9}>
-                                <Paper>
+                            </Grid>
+
+                            <Grid item xs={12} md={6} lg={9} style={{ display: 'flex' }}>
+                                <Paper className={classes.paper}>
                                     <TaskStatus />
                                 </Paper>
                             </Grid>
-                            {/* Recent Orders */}
+
                             <Grid item xs={12}>
                                 <Paper className={classes.paper}>
-                                    <Orders />
+                                    <RecentFlowExecutions />
                                 </Paper>
                             </Grid>
                         </Grid>

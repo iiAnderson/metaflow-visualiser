@@ -18,10 +18,19 @@ const styles = theme => ({
         display: 'flex',
         justifyContent: 'left',
         flexWrap: 'wrap',
-        '& > *': {
-            margin: theme.spacing(0.5),
-        },
+        marginBottom: theme.spacing(1)
     },
+    chipDiv: {
+        display: 'flex',
+        justifyContent: 'left',
+        flexWrap: 'wrap',
+    },
+    chip: {
+        marginLeft: theme.spacing(0.5),
+    },
+    containerDiv: {
+        margin: theme.spacing(3)
+    }
 });
 
 class TaskStatus extends React.Component {
@@ -102,8 +111,10 @@ class TaskStatus extends React.Component {
             if (datum.project in dataByProject) {
                 dataByProject[datum.project].push(
                     <Chip
+                        className={classes.chip}
                         avatar={<Avatar style={{ backgroundColor: datum.state === "fail" ? this.state.colouring.fail.secondary : this.state.colouring.success.secondary }}> {datum.execution == "scheduled" ? <ScheduleIcon /> : <ArrowUpwardIcon />} </Avatar>}
                         variant="outlined"
+                        clickable
                         label={datum.flow + " | " + datum.run_id}
                         style={{ backgroundColor: datum.state === "fail" ? this.state.colouring.fail.primary : this.state.colouring.success.primary }}
                     />
@@ -111,8 +122,10 @@ class TaskStatus extends React.Component {
             } else {
                 dataByProject[datum.project] = [
                     <Chip
+                        className={classes.chip}
                         avatar={<Avatar style={{ backgroundColor: datum.state === "fail" ? this.state.colouring.fail.secondary : this.state.colouring.success.secondary }}> {datum.execution == "scheduled" ? <ScheduleIcon /> : <ArrowUpwardIcon />} </Avatar>}
                         variant="outlined"
+                        clickable
                         label={datum.flow + " | " + datum.run_id}
                         style={{ backgroundColor: datum.state === "fail" ? this.state.colouring.fail.primary : this.state.colouring.success.primary }}
                     />
@@ -124,28 +137,26 @@ class TaskStatus extends React.Component {
         return (
             <React.Fragment>
                 <Title>Current Flow Status</Title>
-
-                {
-                    Object.entries(dataByProject).map((value) => (
-                        <div>
-                            <div className={classes.root}>
-                                <Typography className={classes.root} component="p" variant="subtitle1" align="left">
-                                    {value[0]}
-                                </Typography>
+                <div className={classes.containerDiv}>
+                    {
+                        Object.entries(dataByProject).map((value) => (
+                            <div>
+                                <div className={classes.root}>
+                                    <Typography component="p" variant="subtitle1" align="left">
+                                        {value[0]}
+                                    </Typography>
+                                </div>
+                                <div className={classes.chipDiv}>
+                                    {
+                                        value[1].map((component) => (
+                                            component
+                                        ))
+                                    }
+                                </div>
                             </div>
-                            <div className={classes.root}>
-                                {
-                                    value[1].map((component) => (
-                                        component
-                                    ))
-                                }
-                            </div>
-                        </div>
-                    ))
-
-                }
-
-
+                        ))
+                    }
+                </div>
 
             </React.Fragment>
         );

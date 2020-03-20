@@ -1,54 +1,70 @@
 import React from 'react';
-import { useTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
 import Title from './Title';
+import PropTypes from 'prop-types';
 
-// Generate Sales Data
-function createData(time, amount) {
-    return { time, amount };
+const styles = theme => ({
+    root: {
+        textSecondary: theme.palette.text.secondary,
+        textPrimary: theme.palette.text.primary,
+        primary: theme.palette.primary.main
+    }
+});
+
+class Chart extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            data: [
+                { "time": "03-15", "count": 45 },
+                { "time": "03-16", "count": 7 },
+                { "time": "03-17", "count": 8 },
+                { "time": "03-18", "count": 14 },
+                { "time": "03-19", "count": 35 },
+                { "time": "03-20", "count": 18 },
+            ]
+        }
+    }
+
+    render() {
+        const { classes } = this.props;
+
+        return (
+            <React.Fragment>
+                <Title>Metaflow Usage</Title>
+                <ResponsiveContainer>
+                    <LineChart
+                        data={this.state.data}
+                        margin={{
+                            top: 16,
+                            right: 16,
+                            bottom: 0,
+                            left: 24,
+                        }}
+                    >
+                        <XAxis dataKey="time" stroke={classes.primary} />
+                        <YAxis stroke={classes.textSecondary}>
+                            <Label
+                                angle={270}
+                                position="left"
+                                style={{ textAnchor: 'middle', fill: classes.textPrimary }}
+                            >
+                                Executions per day
+                            </Label>
+                        </YAxis>
+                        <Line type="monotone" dataKey="count" stroke={classes.primary} dot={false} />
+                    </LineChart>
+                </ResponsiveContainer>
+            </React.Fragment>
+        );
+    }
 }
 
-const data = [
-    createData('00:00', 0),
-    createData('03:00', 300),
-    createData('06:00', 600),
-    createData('09:00', 800),
-    createData('12:00', 1500),
-    createData('15:00', 2000),
-    createData('18:00', 2400),
-    createData('21:00', 2400),
-    createData('24:00', undefined),
-];
+Chart.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
 
-export default function Chart() {
-    const theme = useTheme();
-
-    return (
-        <React.Fragment>
-            <Title>Today</Title>
-            <ResponsiveContainer>
-                <LineChart
-                    data={data}
-                    margin={{
-                        top: 16,
-                        right: 16,
-                        bottom: 0,
-                        left: 24,
-                    }}
-                >
-                    <XAxis dataKey="time" stroke={theme.palette.text.secondary} />
-                    <YAxis stroke={theme.palette.text.secondary}>
-                        <Label
-                            angle={270}
-                            position="left"
-                            style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}
-                        >
-                            Sales ($)
-            </Label>
-                    </YAxis>
-                    <Line type="monotone" dataKey="amount" stroke={theme.palette.primary.main} dot={false} />
-                </LineChart>
-            </ResponsiveContainer>
-        </React.Fragment>
-    );
-}
+export default withStyles(styles)(Chart);
