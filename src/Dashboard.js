@@ -17,26 +17,14 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
+import DrawerItems from './DrawerItems';
 import Chart from './Chart';
 import RecentFlowExecutions from './RecentFlowExecutions';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import TaskStatus from './TaskStatus';
 import { Card } from '@material-ui/core';
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://robbiea.co.uk">
-                Robbie Anderson
-      </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import PageView from './PageView';
 
 const drawerWidth = 240;
 
@@ -115,18 +103,23 @@ const styles = theme => ({
         justifyContent: 'space-between',
         width: '100%'
     },
-    fixedHeight: {
-        height: 240,
-    },
 });
 
 class Dashboard extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.switchPage = this.switchPage.bind(this);
+
         this.state = {
-            open: true
+            open: true,
+            page: ""
         };
+    }
+
+    switchPage(page) {
+        this.setState({ "page": page })
     }
 
     render() {
@@ -181,38 +174,11 @@ class Dashboard extends React.Component {
                         </IconButton>
                     </div>
                     <Divider />
-                    <List>{mainListItems}</List>
+                    <List><DrawerItems changePage={this.switchPage} /></List>
                     <Divider />
-                    <List>{secondaryListItems}</List>
+                    <List></List>
                 </Drawer>
-                <main className={classes.content}>
-                    <div className={classes.appBarSpacer} />
-                    <Container maxWidth="lg" className={classes.container}>
-                        <Grid container spacing={3} alignItems="stretch">
-
-                            <Grid item xs={12} md={6} lg={3} style={{ display: 'flex' }}>
-                                <Paper className={classes.paper}>
-                                    <Chart />
-                                </Paper>
-                            </Grid>
-
-                            <Grid item xs={12} md={6} lg={9} style={{ display: 'flex' }}>
-                                <Paper className={classes.paper}>
-                                    <TaskStatus />
-                                </Paper>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Paper className={classes.paper}>
-                                    <RecentFlowExecutions />
-                                </Paper>
-                            </Grid>
-                        </Grid>
-                        <Box pt={4}>
-                            <Copyright />
-                        </Box>
-                    </Container>
-                </main>
+                <PageView page={this.state.page} />
             </div >
         );
     }

@@ -29,6 +29,29 @@ class Chart extends React.Component {
         }
     }
 
+    componentDidMount() {
+        var time = Math.floor(Date.now() / 1000)
+        fetch("http://localhost:5000/flows/count")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    console.log(result)
+                    this.setState({
+                        data: result.data
+                    });
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
+    }
+
     render() {
         const { classes } = this.props;
 

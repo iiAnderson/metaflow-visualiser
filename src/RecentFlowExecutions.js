@@ -39,6 +39,32 @@ class RecentFlowExecutions extends React.Component {
         }
     }
 
+    componentDidMount() {
+        var time = new Date();
+        time.setDate(time.getDate() - 1);
+
+        var time = Math.floor(time / 1000)
+        fetch("http://localhost:5000/flows/" + time)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    console.log(result)
+                    this.setState({
+                        data: result.data
+                    });
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
+    }
+
 
     render() {
         const { classes } = this.props;
