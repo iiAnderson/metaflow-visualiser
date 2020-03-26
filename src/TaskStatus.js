@@ -76,6 +76,11 @@ class TaskStatus extends React.Component {
             )
     }
 
+    generateUUID() {
+        return Math.random().toString(36).substring(2, 15) +
+            Math.random().toString(36).substring(2, 15);
+    }
+
     render() {
         const { classes } = this.props;
 
@@ -86,6 +91,7 @@ class TaskStatus extends React.Component {
             if (datum.project in dataByProject) {
                 dataByProject[datum.project].push(
                     <Chip
+                        key={this.generateUUID()}
                         className={classes.chip}
                         avatar={<Avatar style={{ backgroundColor: datum.successful ? this.state.colouring.fail.secondary : this.state.colouring.success.secondary }}> {datum.execution == "scheduled" ? <ScheduleIcon /> : <ArrowUpwardIcon />} </Avatar>}
                         variant="outlined"
@@ -97,6 +103,7 @@ class TaskStatus extends React.Component {
             } else {
                 dataByProject[datum.project] = [
                     <Chip
+                        key={this.generateUUID()}
                         className={classes.chip}
                         avatar={<Avatar style={{ backgroundColor: datum.successful ? this.state.colouring.fail.secondary : this.state.colouring.success.secondary }}> {datum.execution == "scheduled" ? <ScheduleIcon /> : <ArrowUpwardIcon />} </Avatar>}
                         variant="outlined"
@@ -115,7 +122,7 @@ class TaskStatus extends React.Component {
                 <div className={classes.containerDiv}>
                     {
                         Object.entries(dataByProject).map((value) => (
-                            <div>
+                            <div key={this.generateUUID()}>
                                 <div className={classes.root}>
                                     <Typography component="p" variant="subtitle1" align="left">
                                         {value[0]}

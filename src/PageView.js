@@ -65,7 +65,7 @@ class PageView extends React.Component {
         }
 
         return (
-            <React.Fragment className={classes.content}>
+            <React.Fragment>
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
                     {page}
