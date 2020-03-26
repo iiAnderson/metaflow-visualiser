@@ -49,56 +49,31 @@ class TaskStatus extends React.Component {
                     "secondary": "#FFA07A"
                 }
             },
-            data: [{
-                "project": "IngestPipeline",
-                "flow": "DataIngestFlow",
-                "state": "success",
-                "execution": "scheduled",
-                "run_id": 44
-            }, {
-                "project": "IngestPipeline",
-                "flow": "RecordEnricherFlow",
-                "state": "fail",
-                "execution": "scheduled",
-                "run_id": 42
-            }, {
-                "project": "IngestPipeline",
-                "flow": "DuplicateMergerFlow",
-                "state": "success",
-                "execution": "adhoc",
-                "run_id": 15
-            }, {
-                "project": "DataIngestAnalytics",
-                "flow": "AdhocQueryFlow",
-                "state": "fail",
-                "execution": "adhoc",
-                "run_id": 4
-            }, {
-                "project": "DataIngestAnalytics",
-                "flow": "VariableModelTrainingFlow",
-                "state": "success",
-                "execution": "scheduled",
-                "run_id": 6
-            }, {
-                "project": "ModelService",
-                "flow": "ModelLayerProcessingFlow",
-                "state": "success",
-                "execution": "scheduled",
-                "run_id": 4
-            }, {
-                "project": "ModelService",
-                "flow": "ModelInferenceFlow",
-                "state": "success",
-                "execution": "adhoc",
-                "run_id": 8
-            }, {
-                "project": "ModelService",
-                "flow": "ModelVisualiserFlow",
-                "state": "fail",
-                "execution": "adhoc",
-                "run_id": 9
-            }]
+            data: []
         }
+    }
+
+    componentDidMount() {
+        var time = Math.floor(Date.now() / 1000)
+        fetch("http://localhost:5000/flows")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    console.log(result)
+                    this.setState({
+                        data: result.data
+                    });
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
     }
 
     render() {
@@ -112,22 +87,22 @@ class TaskStatus extends React.Component {
                 dataByProject[datum.project].push(
                     <Chip
                         className={classes.chip}
-                        avatar={<Avatar style={{ backgroundColor: datum.state === "fail" ? this.state.colouring.fail.secondary : this.state.colouring.success.secondary }}> {datum.execution == "scheduled" ? <ScheduleIcon /> : <ArrowUpwardIcon />} </Avatar>}
+                        avatar={<Avatar style={{ backgroundColor: datum.successful ? this.state.colouring.fail.secondary : this.state.colouring.success.secondary }}> {datum.execution == "scheduled" ? <ScheduleIcon /> : <ArrowUpwardIcon />} </Avatar>}
                         variant="outlined"
                         clickable
                         label={datum.flow + " | " + datum.run_id}
-                        style={{ backgroundColor: datum.state === "fail" ? this.state.colouring.fail.primary : this.state.colouring.success.primary }}
+                        style={{ backgroundColor: datum.successful ? this.state.colouring.fail.primary : this.state.colouring.success.primary }}
                     />
                 );
             } else {
                 dataByProject[datum.project] = [
                     <Chip
                         className={classes.chip}
-                        avatar={<Avatar style={{ backgroundColor: datum.state === "fail" ? this.state.colouring.fail.secondary : this.state.colouring.success.secondary }}> {datum.execution == "scheduled" ? <ScheduleIcon /> : <ArrowUpwardIcon />} </Avatar>}
+                        avatar={<Avatar style={{ backgroundColor: datum.successful ? this.state.colouring.fail.secondary : this.state.colouring.success.secondary }}> {datum.execution == "scheduled" ? <ScheduleIcon /> : <ArrowUpwardIcon />} </Avatar>}
                         variant="outlined"
                         clickable
                         label={datum.flow + " | " + datum.run_id}
-                        style={{ backgroundColor: datum.state === "fail" ? this.state.colouring.fail.primary : this.state.colouring.success.primary }}
+                        style={{ backgroundColor: datum.successful ? this.state.colouring.fail.primary : this.state.colouring.success.primary }}
                     />
                 ];
             }
