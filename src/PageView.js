@@ -57,7 +57,7 @@ class PageView extends React.Component {
 
         switch (this.state.page) {
             case "diagnostics":
-                page = <FlowDiagnostics />
+                page = <FlowDiagnostics flow="PlayListFlow" />
                 break;
             default:
                 page = <FlowDashboard />
@@ -65,7 +65,7 @@ class PageView extends React.Component {
         }
 
         return (
-            <React.Fragment className={classes.content}>
+            <React.Fragment>
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
                     {page}

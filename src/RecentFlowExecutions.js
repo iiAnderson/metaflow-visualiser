@@ -35,16 +35,24 @@ class RecentFlowExecutions extends React.Component {
                     'flow': 'TestModelFlow',
                     'user': 'robbie'
                 }
-            ]
+            ],
+            flow: props.flow === undefined ? "" : props.flow
         }
     }
 
     componentDidMount() {
         var time = new Date();
+        var url = "";
         time.setDate(time.getDate() - 1);
-
         var time = Math.floor(time / 1000)
-        fetch("http://localhost:5000/flows/" + time)
+
+        if (this.state.flow === "") {
+            url = "http://localhost:5000/flows/" + time;
+        } else {
+            url = "http://localhost:5000/flows/" + this.state.flow + "/" + time;
+        }
+
+        fetch(url)
             .then(res => res.json())
             .then(
                 (result) => {
