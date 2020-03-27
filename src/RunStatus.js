@@ -34,15 +34,13 @@ const styles = theme => ({
     }
 });
 
-class TaskStatus extends React.Component {
+class RunStatus extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            compressed: props.compressed,
             flow: props.flow,
-            show: props.show,
             colouring: {
                 "success": {
                     "primary": "#98FB98",
@@ -59,7 +57,7 @@ class TaskStatus extends React.Component {
 
     componentDidMount() {
         var time = Math.floor(Date.now() / 1000)
-        fetch("http://localhost:5000/flows")
+        fetch("http://localhost:5000/flows/" + this.state.flow + "/last")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -102,19 +100,15 @@ class TaskStatus extends React.Component {
 
         return (
             <React.Fragment>
-                <Title>Current Flow Status</Title>
                 <div className={classes.containerDiv}>
                     {
                         Object.entries(dataByProject).map((value) => (
                             <div key={this.generateUUID()}>
                                 <div className={classes.root}>
-                                    <Typography component="p" variant="subtitle1" align="left">
-                                        {value[0]}
-                                    </Typography>
                                 </div>
                                 <div className={classes.chipDiv}>
                                     {
-                                        <StatusChips data={value[1]} />
+                                        <StatusChips data={value[1]} compressed={true} />
                                     }
                                 </div>
                             </div>
@@ -127,8 +121,8 @@ class TaskStatus extends React.Component {
     }
 }
 
-TaskStatus.propTypes = {
+RunStatus.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TaskStatus);
+export default withStyles(styles)(RunStatus);

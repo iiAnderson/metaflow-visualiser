@@ -57,7 +57,7 @@ class PageView extends React.Component {
 
         switch (this.state.page) {
             case "diagnostics":
-                page = <FlowDiagnostics />
+                page = <FlowDiagnostics flow="PlayListFlow" />
                 break;
             default:
                 page = <FlowDashboard />

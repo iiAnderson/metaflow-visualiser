@@ -25,13 +25,22 @@ class Chart extends React.Component {
                 { "time": "03-18", "count": 14 },
                 { "time": "03-19", "count": 35 },
                 { "time": "03-20", "count": 18 },
-            ]
+            ],
+            flow: props.flow === undefined ? "" : props.flow
         }
     }
 
     componentDidMount() {
         var time = Math.floor(Date.now() / 1000)
-        fetch("http://localhost:5000/flows/count")
+        var url = "";
+
+        if (this.state.flow == "") {
+            url = "http://localhost:5000/flows/count";
+        } else {
+            url = "http://localhost:5000/flows/" + this.state.flow + "/count"
+        }
+
+        fetch(url)
             .then(res => res.json())
             .then(
                 (result) => {
