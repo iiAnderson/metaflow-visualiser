@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import FlowDashboard from './FlowDashboard';
 import FlowDiagnostics from './FlowDiagnostics';
+import RunDiagnostics from './RunDiagnostics';
 
 const styles = theme => ({
     appBarSpacer: theme.mixins.toolbar,
@@ -58,6 +59,9 @@ class PageView extends React.Component {
         switch (this.state.page) {
             case "diagnostics":
                 page = <FlowDiagnostics flow="PlayListFlow" />
+                break;
+            case "run-diagnostics":
+                page = <RunDiagnostics flow="PlayListFlow" />
                 break;
             default:
                 page = <FlowDashboard />

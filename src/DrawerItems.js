@@ -39,6 +39,12 @@ class DrawerItems extends React.Component {
                     </ListItemIcon>
                     <ListItemText onClick={(event) => this.handleClick(event, "diagnostics")} primary="Flow Diagnostics" />
                 </ListItem>
+                <ListItem>
+                    <ListItemIcon>
+                        <ShoppingCartIcon />
+                    </ListItemIcon>
+                    <ListItemText onClick={(event) => this.handleClick(event, "run-diagnostics")} primary="Run Diagnostics" />
+                </ListItem>
             </div>
         );
     }

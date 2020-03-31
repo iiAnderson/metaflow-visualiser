@@ -15,6 +15,7 @@ import { Chip } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import RunStatus from './RunStatus';
+import DataArtifactViewer from './DataArtifactViewer';
 
 const styles = theme => ({
     paper: {
@@ -41,7 +42,7 @@ const styles = theme => ({
     }
 });
 
-class FlowDiagnostics extends React.Component {
+class RunDiagnostics extends React.Component {
 
     constructor(props) {
         super(props);
@@ -79,24 +80,9 @@ class FlowDiagnostics extends React.Component {
 
                 <Grid container spacing={3}>
 
-                    <Grid item xs={12} md={6} lg={9}>
+                    <Grid item xs={12} md={12} lg={12}>
                         <Paper className={classes.paper}>
                             <Typography component="p" variant="h4" align="left">{this.state.flow}</Typography>
-                            {this.generateChips(classes)}
-
-                            <Typography component="p" variant="body2" align="left"><b>Total Runs</b>: 43</Typography>
-                            <Typography component="p" variant="body2" align="left"><b>Avg time to completion</b>: 5m 4s</Typography>
-                            <Typography component="p" variant="body2" align="left"><b>Schedule</b>: Every 1 hour</Typography>
-                            <Typography component="p" variant="body2" align="left"><b>Next scheduled for</b>: 29/02/20202 03:00:00</Typography>
-                            <Typography component="p" variant="body2" align="left"><b>Most Run by</b>: robanderson</Typography>
-
-
-                        </Paper>
-                    </Grid>
-
-                    <Grid item xs={12} md={6} lg={3} style={{ display: 'flex' }}>
-                        <Paper className={classes.paper}>
-                            <Chart flow={this.state.flow} />
                         </Paper>
                     </Grid>
 
@@ -108,7 +94,7 @@ class FlowDiagnostics extends React.Component {
 
                     <Grid item xs={12} md={6} lg={9}>
                         <Paper className={classes.paper}>
-                            <RecentFlowExecutions flow={this.state.flow} />
+                            <DataArtifactViewer flow={this.state.flow} />
                         </Paper>
                     </Grid>
                 </Grid>
@@ -118,8 +104,8 @@ class FlowDiagnostics extends React.Component {
     }
 }
 
-FlowDiagnostics.propTypes = {
+RunDiagnostics.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(FlowDiagnostics);
+export default withStyles(styles)(RunDiagnostics);

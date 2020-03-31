@@ -100,21 +100,19 @@ class RunStatus extends React.Component {
 
         return (
             <React.Fragment>
-                <div className={classes.containerDiv}>
-                    {
-                        Object.entries(dataByProject).map((value) => (
-                            <div key={this.generateUUID()}>
-                                <div className={classes.root}>
-                                </div>
-                                <div className={classes.chipDiv}>
-                                    {
-                                        <StatusChips data={value[1]} compressed={true} />
-                                    }
-                                </div>
+                {
+                    Object.entries(dataByProject).map((value) => (
+                        <div key={this.generateUUID()}>
+                            <div className={classes.root}>
                             </div>
-                        ))
-                    }
-                </div>
+                            <div className={classes.chipDiv}>
+                                {
+                                    <StatusChips data={value[1]} compressed={true} classes={classes} />
+                                }
+                            </div>
+                        </div>
+                    ))
+                }
 
             </React.Fragment>
         );

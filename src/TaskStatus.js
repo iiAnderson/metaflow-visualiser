@@ -114,7 +114,7 @@ class TaskStatus extends React.Component {
                                 </div>
                                 <div className={classes.chipDiv}>
                                     {
-                                        <StatusChips data={value[1]} />
+                                        <StatusChips data={value[1]} classes={classes} />
                                     }
                                 </div>
                             </div>
