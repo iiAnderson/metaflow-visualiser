@@ -13,27 +13,6 @@ function preventDefault(event) {
     event.preventDefault();
 }
 
-const styles = theme => ({
-    root: {
-        display: 'flex',
-        justifyContent: 'left',
-        flexWrap: 'wrap',
-        marginBottom: theme.spacing(1)
-    },
-    chipDiv: {
-        display: 'flex',
-        justifyContent: 'left',
-        flexWrap: 'wrap',
-    },
-    chip: {
-        marginLeft: theme.spacing(0.5),
-        marginTop: theme.spacing(0.5)
-    },
-    containerDiv: {
-        margin: theme.spacing(3)
-    }
-});
-
 class StatusChips extends React.Component {
 
     constructor(props) {
@@ -61,7 +40,8 @@ class StatusChips extends React.Component {
                 }
             ]
             */
-            data: props.data
+            data: props.data,
+            classes: props.classes
         }
     }
 
@@ -109,4 +89,4 @@ StatusChips.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(StatusChips);
+export default StatusChips;
