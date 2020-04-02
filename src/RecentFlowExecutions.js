@@ -26,6 +26,7 @@ class RecentFlowExecutions extends React.Component {
         super(props)
 
         this.state = {
+            changePageCallback: props.changePageCallback,
             data: [
                 {
                     'successful': true,
@@ -38,6 +39,13 @@ class RecentFlowExecutions extends React.Component {
             ],
             flow: props.flow === undefined ? "" : props.flow
         }
+
+        this.handleClick = this.handleClick.bind(this);
+
+    }
+
+    handleClick(event, data) {
+        this.state.changePageCallback(data);
     }
 
     componentDidMount() {
@@ -101,7 +109,11 @@ class RecentFlowExecutions extends React.Component {
                                 <TableCell>{row.successful + " "}</TableCell>
                                 <TableCell>{row.finished_at}</TableCell>
                                 <TableCell>{row.user}</TableCell>
-                                <TableCell><Button>Details</Button></TableCell>
+                                <TableCell><Button onClick={(event) => this.handleClick(event, {
+                                    "page": "run-diagnostics",
+                                    "flow": row.flow,
+                                    "run_id": row.run_id
+                                })}>Details</Button></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

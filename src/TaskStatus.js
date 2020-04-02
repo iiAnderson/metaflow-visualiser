@@ -41,6 +41,7 @@ class TaskStatus extends React.Component {
 
         this.state = {
             compressed: props.compressed,
+            changePageCallback: props.changePageCallback,
             flow: props.flow,
             show: props.show,
             colouring: {
@@ -114,7 +115,7 @@ class TaskStatus extends React.Component {
                                 </div>
                                 <div className={classes.chipDiv}>
                                     {
-                                        <StatusChips data={value[1]} classes={classes} />
+                                        <StatusChips data={value[1]} classes={classes} changePageCallback={this.state.changePageCallback} />
                                     }
                                 </div>
                             </div>

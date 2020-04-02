@@ -20,6 +20,7 @@ class StatusChips extends React.Component {
 
         this.state = {
             compressed: props.compressed,
+            changePageCallback: props.changePageCallback,
             colouring: {
                 "success": {
                     "primary": "#98FB98",
@@ -43,6 +44,12 @@ class StatusChips extends React.Component {
             data: props.data,
             classes: props.classes
         }
+        this.handleClick = this.handleClick.bind(this);
+
+    }
+
+    handleClick(event, data) {
+        this.state.changePageCallback(data);
     }
 
     generateUUID() {
@@ -73,6 +80,7 @@ class StatusChips extends React.Component {
                                         clickable
                                         label={this.state.compressed ? value.run_id : value.flow + " | " + value.run_id}
                                         style={{ backgroundColor: value.finished ? this.state.colouring.success.primary : this.state.colouring.fail.primary }}
+                                        onClick={(event) => this.handleClick(event, { "page": "flow-diagnostics", "flow": value.flow })}
                                     />
                                 }
                             </div>

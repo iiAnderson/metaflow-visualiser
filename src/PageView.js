@@ -41,30 +41,32 @@ class PageView extends React.Component {
         super(props);
         console.log(props);
         this.state = {
-            "page": props.page
+            pageData: props.page,
+            changePageCallback: props.changePageCallback
         }
     }
 
     componentWillReceiveProps(nextProps) {
         console.log(nextProps);
         this.setState({
-            "page": nextProps.page
+            pageData: nextProps.page
         });
     }
 
     render() {
         var { classes } = this.props;
         var page = null;
+        console.log(this.state.pageData);
 
-        switch (this.state.page) {
-            case "diagnostics":
-                page = <FlowDiagnostics flow="PlayListFlow" />
+        switch (this.state.pageData.page) {
+            case "flow-diagnostics":
+                page = <FlowDiagnostics flow={this.state.pageData.flow} changePageCallback={this.state.changePageCallback} />
                 break;
             case "run-diagnostics":
-                page = <RunDiagnostics flow="PlayListFlow" />
+                page = <RunDiagnostics flow={this.state.pageData.flow} run_id={this.state.pageData.run_id} changePageCallback={this.state.changePageCallback} />
                 break;
             default:
-                page = <FlowDashboard />
+                page = <FlowDashboard changePageCallback={this.state.changePageCallback} />
                 break;
         }
 

@@ -178,7 +178,7 @@ class Dashboard extends React.Component {
                     <Divider />
                     <List></List>
                 </Drawer>
-                <PageView page={this.state.page} />
+                <PageView page={this.state.page} changePageCallback={this.switchPage} />
             </div >
         );
     }

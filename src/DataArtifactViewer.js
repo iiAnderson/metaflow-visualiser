@@ -11,7 +11,8 @@ class DataArtifactViewer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            flow: this.props.flow,
+            flow: props.flow,
+            run_id: props.run_id,
             data: {
                 "dataset1": ["abc", "123"],
                 "output_data": { "awesome": "sauce" }
@@ -20,7 +21,7 @@ class DataArtifactViewer extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://localhost:5000/flows/" + this.state.flow + "/run/23/artifacts")
+        fetch("http://localhost:5000/flows/" + this.state.flow + "/run/" + this.state.run_id + "/artifacts")
             .then(res => res.json())
             .then(
                 (result) => {

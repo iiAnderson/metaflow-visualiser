@@ -27,6 +27,10 @@ class FlowDashboard extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            changePageCallback: props.changePageCallback
+        }
     }
 
     render() {
@@ -45,13 +49,13 @@ class FlowDashboard extends React.Component {
 
                     <Grid item xs={12} md={6} lg={9} style={{ display: 'flex' }}>
                         <Paper className={classes.paper}>
-                            <TaskStatus />
+                            <TaskStatus changePageCallback={this.state.changePageCallback} />
                         </Paper>
                     </Grid>
 
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
-                            <RecentFlowExecutions />
+                            <RecentFlowExecutions changePageCallback={this.state.changePageCallback} />
                         </Paper>
                     </Grid>
                 </Grid>

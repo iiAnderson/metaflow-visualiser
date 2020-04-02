@@ -47,6 +47,7 @@ class FlowDiagnostics extends React.Component {
         super(props);
         this.state = {
             flow: props.flow,
+            changePageCallback: props.changePageCallback,
             colouring: {
                 "success": {
                     "primary": "#98FB98",
@@ -108,7 +109,7 @@ class FlowDiagnostics extends React.Component {
 
                     <Grid item xs={12} md={6} lg={9}>
                         <Paper className={classes.paper}>
-                            <RecentFlowExecutions flow={this.state.flow} />
+                            <RecentFlowExecutions flow={this.state.flow} changePageCallback={this.state.changePageCallback} />
                         </Paper>
                     </Grid>
                 </Grid>
