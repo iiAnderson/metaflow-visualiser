@@ -2,6 +2,7 @@
   "name": "metaflow-visualiser",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "@material-ui/core": "^4.9.5",
     "@material-ui/icons": "^4.9.1",
@@ -21,6 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "aws s3 sync build/ s3://metaflow-visualiser --acl public-read",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

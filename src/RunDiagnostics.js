@@ -48,6 +48,7 @@ class RunDiagnostics extends React.Component {
         super(props);
         this.state = {
             flow: props.flow,
+            run_id: props.run_id,
             colouring: {
                 "success": {
                     "primary": "#98FB98",
@@ -94,7 +95,7 @@ class RunDiagnostics extends React.Component {
 
                     <Grid item xs={12} md={6} lg={9}>
                         <Paper className={classes.paper}>
-                            <DataArtifactViewer flow={this.state.flow} />
+                            <DataArtifactViewer flow={this.state.flow} run_id={this.state.run_id} />
                         </Paper>
                     </Grid>
                 </Grid>

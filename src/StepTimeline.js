@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { Typography } from '@material-ui/core';
 import Title from './Title';
+import { URL, API_TOKEN } from './static';
+
 
 const styles = theme => ({
     paper: {
@@ -30,75 +32,7 @@ class StepTimeline extends React.Component {
             flow: props.flow,
             data: {
                 steps: [
-                    {
-                        "step": "data_ingest",
-                        "finished_at": "2016-09-12 10:06 PM",
-                        "tasks": [
-                            {
-                                "successful": true,
-                                "finished": true,
-                                "finished_at": "",
-                                "exception": "",
-                                "stdout": "",
-                                "stderr": ""
-                            }
-                        ]
-                    },
-                    {
-                        "step": "data_parser_step",
-                        "finished_at": "2016-09-12 10:06 PM",
-                        "tasks": [
-                            {
-                                "successful": true,
-                                "finished": true,
-                                "finished_at": "",
-                                "exception": "",
-                                "stdout": "",
-                                "stderr": ""
-                            }
-                        ]
-                    },
-                    {
-                        "step": "split_dataset",
-                        "finished_at": "2016-09-12 10:06 PM",
-                        "tasks": [
-                            {
-                                "successful": true,
-                                "finished": true,
-                                "finished_at": "",
-                                "exception": "",
-                                "stdout": "",
-                                "stderr": ""
-                            }
-                        ]
-                    }, {
-                        "step": "save_to_s3",
-                        "finished_at": "2016-09-12 10:06 PM",
-                        "tasks": [
-                            {
-                                "successful": true,
-                                "finished": true,
-                                "finished_at": "",
-                                "exception": "",
-                                "stdout": "",
-                                "stderr": ""
-                            }
-                        ]
-                    },
-                    {
-                        "step": "output_metrics",
-                        "finished_at": "2016-09-12 10:06 PM",
-                        "tasks": [
-                            {
-                                "successful": true,
-                                "finished": true,
-                                "finished_at": "",
-                                "exception": "",
-                                "stdout": "",
-                                "stderr": ""
-                            }
-                        ]
-                    }
+
                 ]
             }
         }
@@ -107,9 +41,10 @@ class StepTimeline extends React.Component {
     componentDidMount() {
         var url = "";
 
-        url = "http://localhost:5000/flows/" + this.state.flow + "/recent"
+        url = URL + "/flows/" + this.state.flow + "/recent"
 
-        fetch(url)
+        console.log(url);
+        fetch(url, { headers: { 'x-api-key': API_TOKEN } })
             .then(res => res.json())
             .then(
                 (result) => {

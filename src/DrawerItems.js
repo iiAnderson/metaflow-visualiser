@@ -31,19 +31,19 @@ class DrawerItems extends React.Component {
                     <ListItemIcon>
                         <DashboardIcon />
                     </ListItemIcon>
-                    <ListItemText onClick={(event) => this.handleClick(event, "dashboard")} primary="Dashboard" />
+                    <ListItemText onClick={(event) => this.handleClick(event, { "page": "dashboard" })} primary="Dashboard" />
                 </ListItem>
                 <ListItem button >
                     <ListItemIcon>
                         <ShoppingCartIcon />
                     </ListItemIcon>
-                    <ListItemText onClick={(event) => this.handleClick(event, "diagnostics")} primary="Flow Diagnostics" />
+                    <ListItemText onClick={(event) => this.handleClick(event, { "page": "flow-diagnostics" })} primary="Flow Diagnostics" />
                 </ListItem>
                 <ListItem>
                     <ListItemIcon>
                         <ShoppingCartIcon />
                     </ListItemIcon>
-                    <ListItemText onClick={(event) => this.handleClick(event, "run-diagnostics")} primary="Run Diagnostics" />
+                    <ListItemText onClick={(event) => this.handleClick(event, { "page": "run-diagnostics" })} primary="Run Diagnostics" />
                 </ListItem>
             </div>
         );
