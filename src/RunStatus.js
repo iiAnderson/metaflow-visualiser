@@ -1,14 +1,9 @@
 import React from 'react';
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
-import Title from './Title';
-import ScheduleIcon from '@material-ui/icons/Schedule';
-import { Chip } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import StatusChips from './StatusChips';
+import { URL, API_TOKEN } from './static';
+
 
 function preventDefault(event) {
     event.preventDefault();
@@ -57,7 +52,7 @@ class RunStatus extends React.Component {
 
     componentDidMount() {
         var time = Math.floor(Date.now() / 1000)
-        fetch("http://localhost:5000/flows/" + this.state.flow + "/last")
+        fetch(URL + "/flows/" + this.state.flow + "/last", { headers: { 'x-api-key': API_TOKEN } })
             .then(res => res.json())
             .then(
                 (result) => {

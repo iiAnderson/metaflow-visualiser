@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
 import Title from './Title';
 import PropTypes from 'prop-types';
+import { URL, API_TOKEN } from './static';
 
 const styles = theme => ({
     root: {
@@ -35,12 +36,12 @@ class Chart extends React.Component {
         var url = "";
 
         if (this.state.flow == "") {
-            url = "http://localhost:5000/flows/count";
+            url = URL + "/flows/count";
         } else {
-            url = "http://localhost:5000/flows/" + this.state.flow + "/count"
+            url = URL + "/flows/" + this.state.flow + "/count"
         }
 
-        fetch(url)
+        fetch(url, { headers: { 'x-api-key': API_TOKEN } })
             .then(res => res.json())
             .then(
                 (result) => {
@@ -70,6 +71,7 @@ class Chart extends React.Component {
                 <ResponsiveContainer>
                     <LineChart
                         data={this.state.data}
+                        height={250}
                         margin={{
                             top: 16,
                             right: 16,

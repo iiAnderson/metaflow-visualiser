@@ -9,6 +9,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
+import { URL, API_TOKEN } from './static';
+
 
 function preventDefault(event) {
     event.preventDefault();
@@ -28,14 +30,7 @@ class RecentFlowExecutions extends React.Component {
         this.state = {
             changePageCallback: props.changePageCallback,
             data: [
-                {
-                    'successful': true,
-                    'finished': true,
-                    'finished_at': '2020-03-20T10:48:20.fZ',
-                    'run_id': 2,
-                    'flow': 'TestModelFlow',
-                    'user': 'robbie'
-                }
+
             ],
             flow: props.flow === undefined ? "" : props.flow
         }
@@ -55,12 +50,12 @@ class RecentFlowExecutions extends React.Component {
         var time = Math.floor(time / 1000)
 
         if (this.state.flow === "") {
-            url = "http://localhost:5000/flows/" + time;
+            url = URL + "/flows/all/" + time;
         } else {
-            url = "http://localhost:5000/flows/" + this.state.flow + "/" + time;
+            url = URL + "/flows/" + this.state.flow + "/" + time;
         }
-
-        fetch(url)
+        console.log(url);
+        fetch(url, { headers: { 'x-api-key': API_TOKEN } })
             .then(res => res.json())
             .then(
                 (result) => {
@@ -106,7 +101,7 @@ class RecentFlowExecutions extends React.Component {
                                 <TableCell>{row.flow}</TableCell>
                                 <TableCell>{row.run_id}</TableCell>
                                 <TableCell>{row.finished + " "}</TableCell>
-                                <TableCell>{row.successful + " "}</TableCell>
+                                <TableCell>{row.success + " "}</TableCell>
                                 <TableCell>{row.finished_at}</TableCell>
                                 <TableCell>{row.user}</TableCell>
                                 <TableCell><Button onClick={(event) => this.handleClick(event, {
